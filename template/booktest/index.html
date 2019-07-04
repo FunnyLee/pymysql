@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书信息</title>
+</head>
+<body>
+<h2>显示图书信息</h2>
+<p>图书信息为：</p>
+<ur>
+    {#加载python过滤器#}
+    {% load filters %}
+    {% for book in books %}
+        {#使用过滤器#}
+        {#模板变量｜过滤器：参数#}
+        {% if book.id|mod:3 %}
+            <li style="background: red">{{ book.id }}<a href="/delete{{ book.id }}">&nbsp;-删除</a></li>
+        {% else %}
+            <li style="background: green">{{ book.id }}<a href="/delete{{ book.id }}">&nbsp;-删除</a></li>
+        {% endif %}
+    {% empty %}
+        <li>没有图书</li>
+    {% endfor %}
+</ur>
+<br/>
+{#路径前面加斜杠，表示前面默认http://127.0.0.1/create；#}
+{#如果不加斜杠，路径会拼接成http://127.0.0.1/index/create#}
+<div><a href="/create">新增一本图书</a></div>
+<div><a href="/managerCreate">自定义管理器新增一本图书</a></div>
+
+<br>
+<div><a href="/query">查询</a></div>
+<div><p>{{ querybook.btitle }}</p></div>
+</body>
+</html>
